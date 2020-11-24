@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int _split(char *url, int w, int h, int num);
+void yuv_split(char *url, int w, int h, int num);
 
 int main() {
     printf("Hello, World!\n");
-    int s = _split("testyuv.yuv",256,256,1);
+    yuv_split("testyuv.yuv",256,256,1);
 
     return 0;
 }
 
-int _split(char *url, int w, int h, int num){
+void yuv_split(char *url, int w, int h, int num){
     // TODO :fopen过时，使用fopen_s替代
     FILE *fp = fopen(url, "rb+");
     FILE *fp1 = fopen("output_420_y.y","wb+");
@@ -31,6 +31,5 @@ int _split(char *url, int w, int h, int num){
     fclose(fp1);
     fclose(fp2);
     fclose(fp3);
-
-    return 0;
 }
+
