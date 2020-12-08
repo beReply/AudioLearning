@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/codeLib/note/AudioLearning/RGB_YUV/main.c" "C:/codeLib/note/AudioLearning/RGB_YUV/cmake-build-debug/CMakeFiles/RGB_YUV.dir/main.c.obj"
+  "G:/CodeLib/AudioLearning/RGB_YUV/main.c" "G:/CodeLib/AudioLearning/RGB_YUV/cmake-build-debug/CMakeFiles/RGB_YUV.dir/main.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "MSVC")
 
