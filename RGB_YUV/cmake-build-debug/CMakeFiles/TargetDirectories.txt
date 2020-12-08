@@ -1,3 +1,3 @@
-C:/codeLib/note/AudioLearning/RGB_YUV/cmake-build-debug/CMakeFiles/RGB_YUV.dir
-C:/codeLib/note/AudioLearning/RGB_YUV/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/codeLib/note/AudioLearning/RGB_YUV/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+G:/CodeLib/AudioLearning/RGB_YUV/cmake-build-debug/CMakeFiles/RGB_YUV.dir
+G:/CodeLib/AudioLearning/RGB_YUV/cmake-build-debug/CMakeFiles/edit_cache.dir
+G:/CodeLib/AudioLearning/RGB_YUV/cmake-build-debug/CMakeFiles/rebuild_cache.dir

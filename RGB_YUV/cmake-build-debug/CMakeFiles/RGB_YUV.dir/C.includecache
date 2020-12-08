@@ -6,9 +6,11 @@
 
 #IncludeRegexTransform: 
 
-C:/codeLib/note/AudioLearning/RGB_YUV/main.c
+G:/CodeLib/AudioLearning/RGB_YUV/main.c
 stdio.h
 -
 stdlib.h
+-
+string.h
 -
 
