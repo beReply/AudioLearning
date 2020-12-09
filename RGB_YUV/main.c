@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #pragma region declare
 
@@ -184,6 +185,45 @@ int yuv420_gray_bar(int width, int height, int y_min, int y_max, int bar_num, ch
     free(data_u);
     free(data_v);
     return 0;
+}
+
+/*
+ * 计算两个YUV420P像素数据的PSNR
+ * PSNR是最基本的视频质量评估方法
+ * 该方法计算了两张YUV图片中亮度分量Y的PSNR
+ *
+ * 对于8bit量化的像素数据来说，PSNR = 10 * log10(255^2 / MSE)
+ * 该方法的公式为 (1/(M*N)) * Σ(i=1, M)Σ(j=1, N)[(x[i,j] - y[i,j])^2];
+ * M,N分别为图像的宽高
+ */
+void yuv420_psnr(char *url_one, char *url_two, int w, int h, int num){
+    FILE *fp1, *fp2;
+    fopen_s(&fp1, url_one, "rb+");
+    fopen_s(&fp2, url_two, "rb+");
+    unsigned char *pic1 = (unsigned char *)malloc(w * h);
+    unsigned char *pic2 = (unsigned char *)malloc(w * h);
+
+    for (int i = 0; i < num; i++) {
+        fread(pic1, 1, w * h, fp1);
+        fread(pic2, 1, w * h, fp2);
+
+        double mse_sum = 0, mse = 0, psnr = 0;
+        for (int j = 0; j < w * h; j++) {
+            mse_sum += pow((double)(pic1[j] - pic2[j]), 2);
+        }
+
+        mse = mse_sum / (w * h);
+        psnr = 10 * log10(255.0 * 255.0 / mse);
+        printf("%5.3f\n", psnr);
+
+        fseek(fp1, w * h / 2, SEEK_CUR);
+        fseek(fp2, w * h / 2, SEEK_CUR);
+    }
+
+    free(pic1);
+    free(pic2);
+    fclose(fp1);
+    fclose(fp2);
 }
 
 #pragma endregion
