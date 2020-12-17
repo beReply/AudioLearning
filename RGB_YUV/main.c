@@ -3,6 +3,9 @@
 #include <string.h>
 #include <math.h>
 
+#define uchar unsigned char
+#define ushort unsigned short
+
 #pragma region declare
 
 // yuv420
@@ -14,6 +17,9 @@ int yuv420_gray_bar(int width, int height, int y_min, int y_max, int bar_num, ch
 
 // yuv444
 void yuv444_split(char *url, int w, int h,int num);
+
+// RGB24
+void rgb24_split(char *url, int w, int h, int num);
 
 #pragma endregion
 
@@ -265,10 +271,76 @@ void yuv444_split(char *url, int w, int h,int num){
 #pragma endregion
 
 
+#pragma region RGB24
+
+/*
+ * 分离RGB24像素数据中的R、G、B分量
+ */
+void rgb24_split(char *url, int w, int h, int num){
+    FILE *fp, *fp1, *fp2, *fp3;
+    fopen_s(&fp, url, "rb+");
+    fopen_s(&fp1, "output_r.y", "wb+");
+    fopen_s(&fp2, "output_g.y", "wb+");
+    fopen_s(&fp3, "output_b.y", "wb+");
+
+    uchar *pic = (uchar *)malloc(w * h * 3);
+
+    for (int i = 0; i < num; i++) {
+        fread(pic, 1, w * h * 3, fp);
+
+        for (int j = 0; j < w*h*3; j = j+3) {
+            // R
+            fwrite(pic + j, 1, 1, fp1);
+            // G
+            fwrite(pic + j + 1, 1, 1, fp2);
+            // B
+            fwrite(pic + j + 2, 1, 1, fp3);
+        }
+    }
+
+    free(pic);
+    fclose(fp);
+    fclose(fp1);
+    fclose(fp2);
+    fclose(fp3);
+}
+
+/*
+ * 将RGB24格式像素数据封装为BMP图像
+ */
+void rgb24_to_bmp(const char *rgb24path, int width, int height, const char *bmpPath){
+
+    typedef struct {
+        long imageSize;
+        long width;
+        long startPosition;
+    }BmpHead;
+
+    typedef struct {
+        long length;
+        long height;
+        ushort colorPlane;
+        ushort bitColor;
+        long zipFormat;
+        long realSize;
+        long xPel;
+        long yPel;
+        long colorUse;
+        long colorImportant;
+    }InfoHead;
+
+    int i = 0, j = 0;
+    BmpHead m_BmpHead = {0};
+    InfoHead m_BmpInfoHead = {0};
+    char bfType[2] = 
+
+}
+
+#pragma endregion
+
 int main() {
     printf("Hello, World!\n");
-    yuv420_gray_bar(640, 360,0,255,10,"gray_bar_640x360.yuv");
-    // yuv420_border("..\\TestFile\\tempete_cif.yuv",352,288, 10,1);
+    rgb24_split("..\\File\\cie1931_500x500.rgb",500,500, 1);
 
     return 0;
 }
