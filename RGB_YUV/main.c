@@ -318,6 +318,7 @@ void rgb24_to_bmp(const char *rgb24path, int width, int height, const char *bmpP
 
     typedef struct {
         long length;
+        long width;
         long height;
         ushort colorPlane;
         ushort bitColor;
@@ -332,8 +333,53 @@ void rgb24_to_bmp(const char *rgb24path, int width, int height, const char *bmpP
     int i = 0, j = 0;
     BmpHead m_BmpHead = {0};
     InfoHead m_BmpInfoHead = {0};
-    char bfType[2] = 
+    char bfType[2] = {'B','M'};
+    int header_size = sizeof(bfType) + sizeof(BmpHead) + sizeof(InfoHead);
+    uchar *rgb24_buffer = NULL;
+    FILE *fp_rgb24 = NULL, *fp_bmp = NULL;
 
+    // 尝试打开RGB24文件
+    if ((fp_rgb24 = fopen_s(&rgb24path, "rb")) == NULL){
+        printf("Error: Cannot open input RGB24 file.\n");
+        return -1;
+    }
+
+    // 尝试定位到BMP路径
+    if ((fp_bmp = fopen_s(&bmpPath, "wb")) == NULL){
+        printf("Error: Cannot open output BMP file.\n")
+    }
+
+    rgb24_buffer = (uchar *)malloc(width * height * 3);
+    fread(rgb24_buffer, 1, width * height * 3, fp_rgb24);
+
+    m_BmpHead.imageSize = 3 * width * height + header_size;
+    m_BmpHead.startPosition = header_size;
+
+    m_BmpInfoHead.length = sizeof(InfoHead);
+    m_BmpInfoHead.width = width;
+
+    m_BmpInfoHead.height =- height;
+    m_BmpInfoHead.colorPlane = 1;
+    m_BmpInfoHead.bitColor = 24;
+    m_BmpInfoHead.realSize = 3 * width * height;
+
+    fwrite(bfType, 1, sizeof(bfType), fp_bmp);
+    fwrite(&m_BmpHead, 1, sizeof(m_BmpHead), fp_bmp);
+    fwrite(&m_BmpInfoHead, 1, sizeof(m_BmpInfoHead), fp_bmp);
+
+    for (int j = 0; j < height; j++) {
+        for (int i = 0; i < width; i++) {
+            char temp = rgb24_buffer[(j * width + i) * 3 + 2];
+            rgb24_buffer[(j * width + i) * 3 + 2] = rgb24_buffer[(j * width + i) * 3 + 0];
+            rgb24_buffer[(j * width + i) * 3 + 0] = temp;
+        }
+    }
+
+    fwrite(rgb24_buffer, 3 * width * height, 1, fp_bmp);
+    fclose(fp_rgb24);
+    fclose(fp_bmp);
+    free(rgb24_buffer);
+    printf("Finish generate %s! \n" , bmpPath);
 }
 
 #pragma endregion
