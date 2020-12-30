@@ -20,6 +20,7 @@ void yuv444_split(char *url, int w, int h,int num);
 
 // RGB24
 void rgb24_split(char *url, int w, int h, int num);
+void rgb24_to_bmp(const char *rgb24path, int width, int height, const char *bmpPath);
 
 #pragma endregion
 
@@ -382,11 +383,13 @@ void rgb24_to_bmp(const char *rgb24path, int width, int height, const char *bmpP
     printf("Finish generate %s! \n" , bmpPath);
 }
 
+
+
 #pragma endregion
 
 int main() {
     printf("Hello, World!\n");
-    rgb24_split("..\\File\\cie1931_500x500.rgb",500,500, 1);
+    rgb24_to_bmp("..\\File\\cie1931_500x500.rgb", 500, 500, "..\\File\\output_lena.bmp");
 
     return 0;
 }
