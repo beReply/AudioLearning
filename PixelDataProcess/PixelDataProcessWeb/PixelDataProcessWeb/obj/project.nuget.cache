@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "u32watmn1e6QsxvE+Q4zFkPi0Q2hWrNuS9mk2LTCGKWn+eoWnobSvJK1c8O83yJY4g5vZzYdYFv7/KO7V1hTqA==",
+  "success": true,
+  "projectFilePath": "D:\\CodeLib\\GitHub\\AudioLearning\\PixelDataProcess\\PixelDataProcessWeb\\PixelDataProcessWeb\\PixelDataProcessWeb.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Bronya\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Bronya\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Bronya\\.nuget\\packages\\swashbuckle.aspnetcore\\6.1.0\\swashbuckle.aspnetcore.6.1.0.nupkg.sha512",
+    "C:\\Users\\Bronya\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.1.0\\swashbuckle.aspnetcore.swagger.6.1.0.nupkg.sha512",
+    "C:\\Users\\Bronya\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.1.0\\swashbuckle.aspnetcore.swaggergen.6.1.0.nupkg.sha512",
+    "C:\\Users\\Bronya\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.1.0\\swashbuckle.aspnetcore.swaggerui.6.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
