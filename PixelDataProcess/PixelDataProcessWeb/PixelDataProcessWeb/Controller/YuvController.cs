@@ -45,5 +45,27 @@ namespace PixelDataProcessWeb.Controller
         {
             
         }
+
+        [HttpPost("/SimplestRgb24Split")]
+        public async Task<FileStreamResult> SimplestRgb24Split(IFormFile formFile, int width, int height)
+        {
+            var stream = formFile.OpenReadStream();
+            var buffer = new byte[stream.Length];
+            await  stream.ReadAsync(buffer, 0, (int)stream.Length);
+
+            var rByteList = new List<byte>();
+            var gByteList = new List<byte>();
+            var bByteList = new List<byte>();
+
+            for (var i = 0; i < buffer.Length; i+=3)
+            {
+                rByteList.Add(buffer[i]);
+                gByteList.Add(buffer[i+1]);
+                bByteList.Add(buffer[i+2]);
+            }
+            
+            var outStream = new MemoryStream(rByteList.ToArray());
+            return File(outStream, "application/octet-stream", "output_r.y");
+        }
     }
 }
