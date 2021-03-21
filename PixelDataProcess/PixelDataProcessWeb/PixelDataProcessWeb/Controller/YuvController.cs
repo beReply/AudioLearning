@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PixelDataProcessWeb.BmpHeadParams;
+using PixelDataProcessWeb.Extensions;
 
 namespace PixelDataProcessWeb.Controller
 {
@@ -66,6 +68,35 @@ namespace PixelDataProcessWeb.Controller
             
             var outStream = new MemoryStream(rByteList.ToArray());
             return File(outStream, "application/octet-stream", "output_r.y");
+        }
+
+        [HttpPost("RgbToBmp")]
+        public void RgbToBmp(IFormFile formFile, int width, int height)
+        {
+            int i = 0, j = 0;
+            var bfType = new char[] {'B', 'M'};
+            var bmpHead = new BmpHead();
+            var infoHead = new InfoHead();
+
+            unsafe
+            {
+                var headSize = sizeof(BmpHead);
+                bmpHead.ImageSize = 3 * width * height + headSize;
+                bmpHead.StartPosition = headSize;
+                
+                infoHead.Length = sizeof(InfoHead);
+                infoHead.Width = width;
+                infoHead.Height = -height;
+                infoHead.ColorPlane = 1;
+                infoHead.BitColor = 24;
+                infoHead.RealSize = 3 * width * height;
+                
+
+            }
+            
+            
+            
+
         }
     }
 }
